@@ -5,6 +5,7 @@
 
 <script type="text/javascript" src="../javascript/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="../javascript/calendar.js"></script>
+<script type="text/javascript" src="../javascript/common.js"></script>
 <script type="text/javascript">
 	$(function() 
 	{
@@ -82,7 +83,7 @@
 		});
 		/* ########################## Product ########################## */
 	});
-
+	
 </script>
 
 <!DOCTYPE html>
@@ -92,7 +93,7 @@
 	<link rel="stylesheet" href="/css/admin.css" type="text/css">
 	</head>
 	<body bgcolor="#ffffff" text="#000000">
-		<form name="detailForm" method="post">
+		<form name="detailForm" method="post" enctype="multipart/form-data">
 			<table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 				<tr>
 					<td width="15" height="37">
@@ -167,7 +168,7 @@
 						<c:if test="${empty prod }">
 							<input type="text" name="manuDate" id="manuDate" readonly="readonly" class="ct_input_g" style="width: 100px; height: 19px"	maxLength="10" minLength="6"/>
 							&nbsp;
-							<img src="../images/ct_icon_date.gif" width="15" height="15" onclick="show_calendar('document.detailForm.manuDate', document.detailForm.manuDate.value)"/>
+							<img src="/images/ct_icon_date.gif" width="15" height="15" onclick="show_calendar('document.detailForm.manuDate', document.detailForm.manuDate.value)"/>
 						</c:if>
 						<c:if test="${! empty prod }">
 							${prod.manuDate }
@@ -198,13 +199,17 @@
 					<td width="104" class="ct_write">상품이미지</td>
 					<td bgcolor="D6D6D6" width="1"></td>
 					<td class="ct_write01">
+						<img id="preview"/>
 						<c:if test="${empty prod }">
-							<input type="text" name="fileName" id="fileName" class="ct_input_g" style="width: 200px; height: 19px" maxLength="13"/>
+							<input type="file" name="file" id="file" class="ct_input_g" onchange="javascript:previewImg(this);"/>
 						</c:if>
 						<c:if test="${! empty prod }">
 							${prod.fileName }
 						</c:if>
 					</td>
+				</tr>
+				<tr>
+					<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 				</tr>
 				<tr>
 					<td width="104" class="ct_write">수량</td>

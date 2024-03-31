@@ -87,6 +87,7 @@
 		});
 		/* ########################## Market ########################## */
 	});
+	
 </script>
 
 <!DOCTYPE html>
@@ -97,7 +98,7 @@
 	</head>
 
 	<body bgcolor="#ffffff" text="#000000">
-		<form name="detailForm" method="post">
+		<form name="detailForm" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="prodNo" value="${prod.prodNo}"/>
 		<input type="hidden" name="regDate" value="${prod.regDate}"/>
 			<table width="100%" height="37" border="0" cellpadding="0" cellspacing="0">
@@ -167,7 +168,7 @@
 						<input type="text" readonly="readonly" id="manuDate" name="manuDate" value="${prod.manuDate}" 	
 							class="ct_input_g" style="width: 100px; height: 19px" maxLength="10" minLength="6">
 									&nbsp;
-						<img src="../images/ct_icon_date.gif" width="15" height="15" 
+						<img src="/images/ct_icon_date.gif" width="15" height="15" 
 							onclick="show_calendar('document.detailForm.manuDate', document.detailForm.manuDate.value)" />
 					</td>
 				</tr>
@@ -192,8 +193,12 @@
 					<td width="104" class="ct_write">상품이미지</td>
 					<td bgcolor="D6D6D6" width="1"></td>
 					<td class="ct_write01">
-						<input type="text" id="fileName" name="fileName" class="ct_input_g" 
-							style="width: 200px; height: 19px" maxLength="13" value="${prod.fileName}"/>
+						<img id="preview" src = "/images/uploadFiles/${upload.logiName}"/>
+						<br>
+						<input type="file" id="file" name="file" onchange="javascript:previewImg(this);" class="ct_input_g"/>
+						<br><br>
+						<b style="color:red;">※ 파일 첨부 시 첨부한 파일로 업데이트가 됩니다.</b>
+						<br><br>
 					</td>
 				</tr>
 				<tr>

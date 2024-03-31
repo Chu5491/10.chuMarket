@@ -30,7 +30,7 @@
   		 	PROD_DETAIL, 
   		 	MANUFACTURE_DAY,
   		 	PRICE, 
-  		 	<if test="#{fileName != null || fileName != ''}">IMAGE_FILE,</if>
+  		 	<if test="#{fileName != null and fileName != ''}">IMAGE_FILE,</if>
   			REG_DATE, 
   			PROD_STOCK, 
   			MARKET_NO
@@ -67,8 +67,13 @@
   		UPDATE 
   		PRODUCT 
   		SET 
-			 PROD_NAME = #{prodName}, PROD_DETAIL = #{prodDetail}, MANUFACTURE_DAY = #{manuDate}, PRICE = #{price},
-			 IMAGE_FILE = #{fileName}, REG_DATE = SYSDATE, PROD_STOCK = #{prodStock}
+			 PROD_NAME = #{prodName}, 
+			 PROD_DETAIL = #{prodDetail},
+			 MANUFACTURE_DAY = #{manuDate},
+			 PRICE = #{price},
+			 <if test="fileName != null and fileName != ''">IMAGE_FILE = #{fileName},</if>
+			 REG_DATE = SYSDATE, 
+			 PROD_STOCK = #{prodStock}
 		WHERE PROD_NO = #{prodNo}
   	</update>
   	<!-- UPDATE 매핑구문 (update SQL 등록) :: update element -->  

@@ -13,8 +13,6 @@ $(function()
 	/* ########################## User ########################## */
 	$( ".ct_btn01:contains('수정')" ).on("click" , function() 
  	{
-		//Debug..
-		//alert(  $( ".ct_btn01:contains('수정')" ) );
  		$(window.parent.frames["rightFrame"].document.location).attr("href","/user/updateUser?userId=${user.userId }");
 	}); 
 	/* ########################## User ########################## */
@@ -24,8 +22,6 @@ $(function()
 	/* ########################## History ########################## */
 	$( ".ct_btn01:contains('확인')" ).on("click" , function() 
  	{
-		//Debug..
-		//alert(  $( ".ct_btn01:contains('확인')" ) );
 		history.go(-1);
 	}); 
 	/* ########################## History ########################## */

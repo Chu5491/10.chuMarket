@@ -3,6 +3,7 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript" src="../../javascript/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../javascript/common.js"></script>
 <script type="text/javascript">
 	$(function() 
 	{
@@ -27,6 +28,23 @@
 		}); 
 		/* ########################## Product ########################## */
 	});
+	
+	function readURL(input) 
+	{
+		if (input.files && input.files[0]) 
+		{
+			var reader = new FileReader();
+			reader.onload = function(e) 
+			{
+				document.getElementById('preview').src = e.target.result;
+		 	};
+		 	
+			reader.readAsDataURL(input.files[0]);
+		}else 
+		{
+		  document.getElementById('preview').src = "";
+		}
+	}
 </script>
 <!DOCTYPE html>
 <html>
@@ -103,12 +121,11 @@
 			</tr>
 			<tr>
 				<td width="104" class="ct_write">
-					상품이미지 <img 	src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+					상품이미지 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 				</td>
 				<td bgcolor="D6D6D6" width="1"></td>
 				<td class="ct_write01">
-					<img src = "/images/uploadFiles/../../images/${prod.fileName}"/>
-					${prod.fileName}
+					<img src = "/images/uploadFiles/${upload.logiName}"/>
 				</td>
 			</tr>
 			<tr>

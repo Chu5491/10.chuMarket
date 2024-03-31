@@ -2,17 +2,18 @@
 DROP TABLE transaction;
 DROP TABLE product;
 DROP TABLE users;
-DROP TABLE market;
+DROP TABLE market_info;
+DROP TABLE productfile;
 
 DROP SEQUENCE seq_product_prod_no;
 DROP SEQUENCE seq_transaction_tran_no;
 DROP SEQUENCE seq_market_market_no;
-
+DROP SEQUENCE seq_productfile_file_no;
 
 CREATE SEQUENCE seq_product_prod_no	 	INCREMENT BY 1 START WITH 10000;
 CREATE SEQUENCE seq_transaction_tran_no	INCREMENT BY 1 START WITH 10000;
 CREATE SEQUENCE seq_market_market_no	INCREMENT BY 1 START WITH 10000;
-
+CREATE SEQUENCE seq_productfile_file_no	INCREMENT BY 1 START WITH 10000;
 
 CREATE TABLE users ( 
 	user_id 			VARCHAR2(20)		NOT NULL,
@@ -53,9 +54,7 @@ CREATE TABLE transaction (
 	tran_no 				NUMBER 			NOT NULL,
 	prod_no 				NUMBER(16)		NOT NULL REFERENCES product(prod_no),
 	buyer_id 				VARCHAR2(20)	NOT NULL REFERENCES users(user_id),
-	payment_option			CHAR(3),논리명
-
-
+	payment_option			CHAR(3),
 	receiver_name 			VARCHAR2(20),
 	receiver_phone			VARCHAR2(14),
 	demailaddr 				VARCHAR2(100),
@@ -87,7 +86,13 @@ CREATE TABLE Market_stat
 	sale_date			DATE
 );
 
-
+CREATE TABLE file
+( 
+	file_no				NUMBER 			NOT NULL,
+	prod_no				NUMBER 			NOT NULL,
+	phys_name			VARCHAR2(100),
+	logi_name			VARCHAR2(100)
+);
 
 INSERT 
 INTO users ( user_id, user_name, password, role, ssn, cell_phone, addr, email, reg_date ) 
@@ -167,14 +172,23 @@ INSERT INTO users
 VALUES ( 'user23', 'SCOTT', '2323', 'user', NULL, NULL, NULL, NULL, sysdate);
            
            
-insert into product values (seq_product_prod_no.nextval,'vaio vgn FS70B','소니 바이오 노트북 신동품','20120514',2000000, 'AHlbAAAAtBqyWAAA.jpg',to_date('2012/12/14 11:27:27', 'YYYY/MM/DD HH24:MI:SS',),5,0);
+insert into product values (seq_product_prod_no.nextval,'vaio vgn FS70B','소니 바이오 노트북 신동품','20120514',2000000, 'AHlbAAAAtBqyWAAA.jpg',to_date('2012/12/14 11:27:27', 'YYYY/MM/DD HH24:MI:SS'),5,0);
 insert into product values (seq_product_prod_no.nextval,'자전거','자전거 좋아요~','20120514',10000, 'AHlbAAAAvetFNwAA.jpg',to_date('2012/11/14 10:48:43', 'YYYY/MM/DD HH24:MI:SS'),3,0);
-insert into product values (seq_product_prod_no.nextval,'보르도','최고 디자인 신품','20120201',1170000, 'AHlbAAAAvewfegAB.jpg',to_date('2012/10/14 10:49:39', 'YYYY/MM/DD HH24:MI:SS',5),6,0);
+insert into product values (seq_product_prod_no.nextval,'보르도','최고 디자인 신품','20120201',1170000, 'AHlbAAAAvewfegAB.jpg',to_date('2012/10/14 10:49:39', 'YYYY/MM/DD HH24:MI:SS'),6,0);
 insert into product values (seq_product_prod_no.nextval,'보드세트','한시즌 밖에 안썼습니다. 눈물을 머금고 내놓음 ㅠ.ㅠ','20120217', 200000, 'AHlbAAAAve1WwgAC.jpg',to_date('2012/11/14 10:50:58', 'YYYY/MM/DD HH24:MI:SS'),9,0);
 insert into product values (seq_product_prod_no.nextval,'인라인','좋아욥','20120819', 20000, 'AHlbAAAAve37LwAD.jpg',to_date('2012/11/14 10:51:40', 'YYYY/MM/DD HH24:MI:SS'),1,0);
 insert into product values (seq_product_prod_no.nextval,'삼성센스 2G','sens 메모리 2Giga','20121121',800000, 'AHlbAAAAtBqyWAAA.jpg',to_date('2012/11/14 18:46:58', 'YYYY/MM/DD HH24:MI:SS'),4,0);
 insert into product values (seq_product_prod_no.nextval,'연꽃','정원을 가꿔보세요','20121022',232300, 'AHlbAAAAtDPSiQAA.jpg',to_date('2012/11/15 17:39:01', 'YYYY/MM/DD HH24:MI:SS'),8,0);
 insert into product values (seq_product_prod_no.nextval,'삼성센스','노트북','20120212',600000, 'AHlbAAAAug1vsgAA.jpg',to_date('2012/11/12 13:04:31', 'YYYY/MM/DD HH24:MI:SS'),6,0);
+
+insert into productfile values (seq_productfile_file_no.nextval,10000,'AHlbAAAAtBqyWAAA.jpg','AHlbAAAAtBqyWAAA.jpg');
+insert into productfile values (seq_productfile_file_no.nextval,10001,'AHlbAAAAvetFNwAA.jpg','AHlbAAAAvetFNwAA.jpg');
+insert into productfile values (seq_productfile_file_no.nextval,10002,'AHlbAAAAvewfegAB.jpg','AHlbAAAAvewfegAB.jpg');
+insert into productfile values (seq_productfile_file_no.nextval,10003,'AHlbAAAAve1WwgAC.jpg','AHlbAAAAve1WwgAC.jpg');
+insert into productfile values (seq_productfile_file_no.nextval,10004,'AHlbAAAAve37LwAD.jpg','AHlbAAAAve37LwAD.jpg');
+insert into productfile values (seq_productfile_file_no.nextval,10005,'AHlbAAAAtBqyWAAA.jpg','AHlbAAAAtBqyWAAA.jpg');
+insert into productfile values (seq_productfile_file_no.nextval,10006,'AHlbAAAAtDPSiQAA.jpg','AHlbAAAAtDPSiQAA.jpg');
+insert into productfile values (seq_productfile_file_no.nextval,10007,'AHlbAAAAug1vsgAA.jpg','AHlbAAAAug1vsgAA.jpg');
 
 insert into market_info values (0,'admin','운영자마켓','운영자가 운영하는 운영 잘하는 집','서울시 동작구 신림동 ',sysdate,'Y');
 
